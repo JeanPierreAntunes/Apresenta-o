@@ -40,7 +40,7 @@
             width: 100vw;
             height: 100vh;
             background-color: var(--bg-slide);
-            padding: 90px 100px 50px 100px;
+            padding: 100px 120px 60px 120px; /* Aumentado o recuo para respirar melhor */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -51,7 +51,7 @@
         }
 
         .slide.active { opacity: 1; visibility: visible; z-index: 5; }
-        .slide.cover-slide { padding: 60px 100px; }
+        .slide.cover-slide { padding: 60px 120px; }
 
         .content-area {
             flex-grow: 1;
@@ -67,30 +67,31 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 25px; /* Mais espaço abaixo do cabeçalho */
         }
 
         .slide-title-group {
-            border-left: 6px solid var(--color-orange);
-            padding-left: 20px;
+            border-left: 8px solid var(--color-orange); /* Linha ligeiramente mais grossa */
+            padding-left: 25px;
         }
 
         .slide-title-group p {
-            font-size: 13px;
+            font-size: 16px; /* Aumentado (era 13px) */
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--color-cyan);
             font-weight: 700;
+            margin-bottom: 5px;
         }
 
-        .slide-title-group h2 { font-size: 34px; letter-spacing: -1px; }
-        .header-logo { height: 45px; object-fit: contain; }
+        .slide-title-group h2 { font-size: 42px; letter-spacing: -1px; } /* Aumentado (era 34px) */
+        .header-logo { height: 55px; object-fit: contain; } /* Aumentado (era 45px) */
 
         /* LAYOUT VERTICAL DE DUAS COLUNAS (PRODUTO) */
         .product-split-vertical {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 50px;
             align-items: center;
             height: 100%;
         }
@@ -99,54 +100,56 @@
         .vertical-stack-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px; /* Mais espaço entre os cartões */
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .vertical-list-card {
             background: #f8fafc;
-            border-left: 5px solid var(--color-orange);
-            padding: 20px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+            border-left: 6px solid var(--color-orange);
+            padding: 25px 35px; /* Mais preenchimento interno */
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
             display: grid;
-            grid-template-columns: 200px 1fr;
+            grid-template-columns: 240px 1fr; /* Largura maior para a coluna do título */
             align-items: center;
-            gap: 20px;
+            gap: 30px;
         }
         .vertical-list-card.cyan { border-left-color: var(--color-cyan); }
         .vertical-list-card.red { border-left-color: #ef4444; }
         
         .vertical-list-card h3, .vertical-list-card h4 { 
-            font-size: 18px; 
+            font-size: 24px; /* Aumentado (era 18px) */
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 15px; 
             color: var(--color-navy);
         }
-        .vertical-list-card p { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+        .vertical-list-card h3 i, .vertical-list-card h4 i { font-size: 26px; } /* Ícones maiores */
+        .vertical-list-card p { font-size: 18px; color: var(--text-body); line-height: 1.6; } /* Aumentado (era 14px) */
 
         .info-showcase-card {
             background: #f8fafc;
-            border-left: 5px solid var(--color-orange);
-            padding: 20px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-            margin-bottom: 15px;
+            border-left: 6px solid var(--color-orange);
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
+            margin-bottom: 20px;
         }
         .info-showcase-card.cyan { border-left-color: var(--color-cyan); }
-        .info-showcase-card h3 { font-size: 18px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
-        .info-showcase-card p { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+        .info-showcase-card h3 { font-size: 22px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; }
+        .info-showcase-card h3 i { font-size: 24px; }
+        .info-showcase-card p { font-size: 17px; color: var(--text-body); line-height: 1.6; }
 
         /* MOLDURAS SOFTWARE */
         .software-frame-dark {
-            border: 1px solid #1e293b;
-            border-radius: 12px;
+            border: 2px solid #1e293b;
+            border-radius: 16px;
             overflow: hidden;
             background: #0f172a;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.18);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -165,45 +168,45 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
         .stack-item-pure { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .stack-item-pure i { font-size: 65px; margin-bottom: 15px; }
+        .stack-item-pure i { font-size: 85px; margin-bottom: 20px; } /* Ícones bem maiores */
         .stack-item-pure.cyan i { color: var(--color-cyan); }
         .stack-item-pure.orange i { color: var(--color-orange); }
-        .stack-item-pure h3 { font-size: 24px; color: var(--color-navy); margin-bottom: 5px; }
-        .stack-item-pure p { font-size: 15px; color: var(--text-light); }
+        .stack-item-pure h3 { font-size: 28px; color: var(--color-navy); margin-bottom: 8px; }
+        .stack-item-pure p { font-size: 18px; color: var(--text-light); }
 
-        .tech-row-container { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-        .tech-block { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 6px solid var(--color-orange); border-radius: 12px; padding: 25px 30px; }
+        .tech-row-container { display: flex; flex-direction: column; gap: 25px; width: 100%; }
+        .tech-block { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 8px solid var(--color-orange); border-radius: 16px; padding: 30px 40px; }
         .tech-block.cyan { border-left-color: var(--color-cyan); }
-        .tech-main-info { display: grid; grid-template-columns: 220px 1fr; gap: 30px; align-items: flex-start; }
-        .tech-label { display: flex; align-items: center; gap: 15px; }
-        .tech-label i { font-size: 26px; color: var(--color-orange); width: 30px; text-align: center; }
+        .tech-main-info { display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: center; }
+        .tech-label { display: flex; align-items: center; gap: 20px; }
+        .tech-label i { font-size: 36px; color: var(--color-orange); width: 40px; text-align: center; }
         .tech-block.cyan .tech-label i { color: var(--color-cyan); }
-        .tech-label h3 { font-size: 20px; font-weight: 700; }
-        .tech-description p { font-size: 14px; color: var(--text-body); line-height: 1.5; }
-        .tech-analogia-row { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-light); font-style: italic; }
+        .tech-label h3 { font-size: 26px; font-weight: 700; }
+        .tech-description p { font-size: 18px; color: var(--text-body); line-height: 1.6; }
+        .tech-analogia-row { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--text-light); font-style: italic; }
 
         /* NAVEGAÇÃO */
         .nav-dock {
             position: absolute;
-            bottom: 30px;
-            right: 100px;
+            bottom: 35px;
+            right: 120px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            padding: 8px 20px;
+            padding: 12px 28px;
             border-radius: 100px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
         }
-        .nav-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--color-navy); }
-        .nav-counter { font-size: 14px; font-weight: 700; color: var(--text-light); }
+        .nav-btn { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--color-navy); }
+        .nav-counter { font-size: 18px; font-weight: 700; color: var(--text-light); }
     </style>
 </head>
 <body>
@@ -218,10 +221,10 @@
 
         <div class="slide cover-slide active">
             <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <img src="image.png" alt="Logo" style="height: 150px; margin-bottom: 20px;">
-                <h1 style="font-size: 80px; letter-spacing: -3px; line-height: 1;">Tutor<span style="color:var(--color-orange)">AI</span></h1>
-                <p style="font-size: 22px; color: var(--text-light); margin-bottom: 50px;">Aprendizagem Adaptativa Baseada em IA</p>
-                <div style="border-top: 2px solid var(--color-orange); padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 850px; text-align: left; gap: 30px; font-size: 15px;">
+                <img src="image.png" alt="Logo" style="height: 180px; margin-bottom: 25px;">
+                <h1 style="font-size: 95px; letter-spacing: -3px; line-height: 1;">Tutor<span style="color:var(--color-orange)">AI</span></h1>
+                <p style="font-size: 26px; color: var(--text-light); margin-bottom: 60px;">Aprendizagem Adaptativa Baseada em IA</p>
+                <div style="border-top: 3px solid var(--color-orange); padding-top: 35px; display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 950px; text-align: left; gap: 35px; font-size: 18px;">
                     <div>Projeto PAP: <strong style="color:var(--color-navy)">TutorAI</strong></div>
                     <div>Autor: <strong style="color:var(--color-navy)">Jean Pierre Antunes</strong></div>
                     <div>Curso: <strong style="color:var(--color-navy)">Técnico de Programação de Informática</strong></div>
@@ -293,7 +296,7 @@
                             <p>Os testes concluídos com sucesso no Chat Inteligente são arquivados e listados como "domínio conquistado" na interface do aluno.</p>
                         </div>
                     </div>
-                    <div class="software-frame-dark" style="height: 380px;">
+                    <div class="software-frame-dark" style="height: 420px;">
                         <img src="pagina_de_estaticas.png" alt="Dashboard de Estatísticas">
                     </div>
                 </div>
@@ -317,7 +320,7 @@
                             <p>Garante conteúdos 100% originais e focados nas competências pedagógicas de cada disciplina.</p>
                         </div>
                     </div>
-                    <div class="software-frame-dark" style="height: 380px;">
+                    <div class="software-frame-dark" style="height: 420px;">
                         <img src="pagina_de_terefas.png" alt="Página de Tarefas">
                     </div>
                 </div>
@@ -346,20 +349,20 @@
                 <img class="header-logo" src="image.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="vertical-stack-list" style="gap: 12px;">
-                    <div class="vertical-list-card" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                <div class="vertical-stack-list" style="gap: 15px;">
+                    <div class="vertical-list-card" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
                         <h4>1. Input Local</h4>
                         <p>O utilizador interage com a interface estruturada em React + Tailwind CSS.</p>
                     </div>
-                    <div class="vertical-list-card cyan" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                    <div class="vertical-list-card cyan" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
                         <h4>2. Execução</h4>
                         <p><strong>Desktop:</strong> O Electron orquestra o pedido nativo. / <strong>Web:</strong> O browser faz requisições HTTPS diretas.</p>
                     </div>
-                    <div class="vertical-list-card" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                    <div class="vertical-list-card" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
                         <h4>3. IA Hub</h4>
                         <p>O OpenRouter faz a ponte segura enviando o pedido para o modelo remoto configurado pelo programador.</p>
                     </div>
-                    <div class="vertical-list-card cyan" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                    <div class="vertical-list-card cyan" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
                         <h4>4. Cloud & Dados</h4>
                         <p>A base de dados do Supabase persiste as notas e o histórico do aluno em tempo real.</p>
                     </div>
@@ -401,7 +404,7 @@
                 <div class="tech-row-container">
                     <div class="tech-block cyan">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-laptop-code"></i><h3>Electron JS (Desktop)</h3></div>
+                            <div class="tech-label"><i class="fas fa-laptop-code"></i><h3>Electron JS</h3></div>
                             <div class="tech-description"><p>Cria um ambiente focado e isolado para o aluno, evitando que distrações do navegador prejudiquem o foco de estudo.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma moldura que transforma o site num programa real instalado localmente no PC.</span></div>
@@ -523,8 +526,8 @@
             <div class="content-area">
                 <div class="vertical-stack-list">
                     <div class="vertical-list-card red">
-                        <h3><i class="fas fa-bug" style="color:#ef4444"></i> Inconsistência de Emojis</h3>
-                        <p><strong>Falha Identificada:</strong> Ícones nativos (como o microfone e o caixote do lixo do histórico) que usam caracteres emoji ficam corrompidos ou invisíveis em ambientes Linux devido à ausência de fontes proprietárias.</p>
+                        <h3><i class="fas fa-bug" style="color:#ef4444"></i> Inconsistência</h3>
+                        <p><strong>Falha Identificada:</strong> Ícones nativos (como o microfone e o caixote do lixo) que usam caracteres emoji ficam corrompidos ou invisíveis em ambientes Linux devido à ausência de fontes proprietárias.</p>
                     </div>
                     <div class="vertical-list-card cyan">
                         <h3><i class="fas fa-check-circle" style="color:var(--color-cyan)"></i> Solução "Humor"</h3>
@@ -546,7 +549,7 @@
             <div class="content-area">
                 <div class="vertical-stack-list">
                     <div class="vertical-list-card cyan">
-                        <h3><i class="fab fa-linux" style="color:var(--color-cyan)"></i> Suporte Nativo Linux</h3>
+                        <h3><i class="fab fa-linux" style="color:var(--color-cyan)"></i> Suporte Linux</h3>
                         <p>Substituição completa dos emojis por ícones vetoriais SVG geridos de forma independente para blindar o design em distribuições Open Source.</p>
                     </div>
                     <div class="vertical-list-card">
@@ -554,7 +557,7 @@
                         <p>Migração estrutural do core em React para React Native, estendendo o TutorAI para smartphones iOS e Android.</p>
                     </div>
                     <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-gamepad" style="color:var(--color-cyan)"></i> Gamificação Expandida</h3>
+                        <h3><i class="fas fa-gamepad" style="color:var(--color-cyan)"></i> Gamificação</h3>
                         <p>Implementação de quadros de liderança entre turmas e insígnias digitais de conquista integradas diretamente ao Baú do Conhecimento.</p>
                     </div>
                 </div>
@@ -563,11 +566,11 @@
 
         <div class="slide cover-slide">
             <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <h2 style="font-size: 70px;">Muito Obrigado!</h2>
-                <p style="font-size: 22px; color: var(--text-light); max-width: 700px; margin-top: 20px; line-height: 1.6;">
+                <h2 style="font-size: 85px;">Muito Obrigado!</h2>
+                <p style="font-size: 28px; color: var(--text-light); max-width: 800px; margin-top: 30px; line-height: 1.6;">
                     "A tecnologia serve para personalizar o percurso de aprendizagem, respeitando a biologia do foco de cada estudante."
                 </p>
-                <div style="margin-top: 50px; color: var(--color-navy); font-weight: 700;">
+                <div style="margin-top: 60px; color: var(--color-navy); font-size: 22px; font-weight: 700;">
                     Jean Pierre Antunes | TutorAI PAP 2026
                 </div>
             </div>
