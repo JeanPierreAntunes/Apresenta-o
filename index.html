@@ -40,7 +40,7 @@
             width: 100vw;
             height: 100vh;
             background-color: var(--bg-slide);
-            padding: 100px 120px 60px 120px; /* Aumentado o recuo para respirar melhor */
+            padding: 100px 120px 60px 120px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -67,16 +67,16 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 25px; /* Mais espaço abaixo do cabeçalho */
+            margin-bottom: 25px;
         }
 
         .slide-title-group {
-            border-left: 8px solid var(--color-orange); /* Linha ligeiramente mais grossa */
+            border-left: 8px solid var(--color-orange);
             padding-left: 25px;
         }
 
         .slide-title-group p {
-            font-size: 16px; /* Aumentado (era 13px) */
+            font-size: 16px;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--color-cyan);
@@ -84,8 +84,8 @@
             margin-bottom: 5px;
         }
 
-        .slide-title-group h2 { font-size: 42px; letter-spacing: -1px; } /* Aumentado (era 34px) */
-        .header-logo { height: 55px; object-fit: contain; } /* Aumentado (era 45px) */
+        .slide-title-group h2 { font-size: 42px; letter-spacing: -1px; }
+        .header-logo { height: 55px; object-fit: contain; }
 
         /* LAYOUT VERTICAL DE DUAS COLUNAS (PRODUTO) */
         .product-split-vertical {
@@ -100,7 +100,7 @@
         .vertical-stack-list {
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Mais espaço entre os cartões */
+            gap: 20px;
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
@@ -109,11 +109,11 @@
         .vertical-list-card {
             background: #f8fafc;
             border-left: 6px solid var(--color-orange);
-            padding: 25px 35px; /* Mais preenchimento interno */
+            padding: 25px 35px;
             border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
+            box-shadow: 0 6px 166px rgba(15, 23, 42, 0.03);
             display: grid;
-            grid-template-columns: 240px 1fr; /* Largura maior para a coluna do título */
+            grid-template-columns: 240px 1fr;
             align-items: center;
             gap: 30px;
         }
@@ -121,14 +121,14 @@
         .vertical-list-card.red { border-left-color: #ef4444; }
         
         .vertical-list-card h3, .vertical-list-card h4 { 
-            font-size: 24px; /* Aumentado (era 18px) */
+            font-size: 24px;
             display: flex; 
             align-items: center; 
             gap: 15px; 
             color: var(--color-navy);
         }
-        .vertical-list-card h3 i, .vertical-list-card h4 i { font-size: 26px; } /* Ícones maiores */
-        .vertical-list-card p { font-size: 18px; color: var(--text-body); line-height: 1.6; } /* Aumentado (era 14px) */
+        .vertical-list-card h3 i, .vertical-list-card h4 i { font-size: 26px; }
+        .vertical-list-card p { font-size: 18px; color: var(--text-body); line-height: 1.6; }
 
         .info-showcase-card {
             background: #f8fafc;
@@ -162,22 +162,59 @@
             object-fit: contain;
         }
 
-        /* STACK TECNOLÓGICA PURA */
-        .stack-pure-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* ESTRUTURA DA STACK DIVIDIDA POR GRUPOS VISUAIS */
+        .stack-groups-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
         }
-        .stack-item-pure { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .stack-item-pure i { font-size: 85px; margin-bottom: 20px; } /* Ícones bem maiores */
-        .stack-item-pure.cyan i { color: var(--color-cyan); }
-        .stack-item-pure.orange i { color: var(--color-orange); }
-        .stack-item-pure h3 { font-size: 28px; color: var(--color-navy); margin-bottom: 8px; }
-        .stack-item-pure p { font-size: 18px; color: var(--text-light); }
+
+        .stack-group-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+        }
+
+        .stack-group-box h3 {
+            font-size: 24px;
+            color: var(--color-navy);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stack-group-items {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .stack-item-grouped i {
+            font-size: 50px;
+            margin-bottom: 8px;
+        }
+        .stack-item-grouped.cyan i { color: var(--color-cyan); }
+        .stack-item-grouped.orange i { color: var(--color-orange); }
+
+        .stack-item-grouped h4 {
+            font-size: 22px;
+            color: var(--color-navy);
+            margin-bottom: 4px;
+        }
+
+        .stack-item-grouped p {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
 
         .tech-row-container { display: flex; flex-direction: column; gap: 25px; width: 100%; }
         .tech-block { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 8px solid var(--color-orange); border-radius: 16px; padding: 30px 40px; }
@@ -221,14 +258,19 @@
 
         <div class="slide cover-slide active">
             <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <img src="image.png" alt="Logo" style="height: 180px; margin-bottom: 25px;">
+                <img src="logo.png" alt="Logo" style="height: 180px; margin-bottom: 25px;">
                 <h1 style="font-size: 95px; letter-spacing: -3px; line-height: 1;">Tutor<span style="color:var(--color-orange)">AI</span></h1>
                 <p style="font-size: 26px; color: var(--text-light); margin-bottom: 60px;">Aprendizagem Adaptativa Baseada em IA</p>
-                <div style="border-top: 3px solid var(--color-orange); padding-top: 35px; display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 950px; text-align: left; gap: 35px; font-size: 18px;">
-                    <div>Projeto PAP: <strong style="color:var(--color-navy)">TutorAI</strong></div>
-                    <div>Autor: <strong style="color:var(--color-navy)">Jean Pierre Antunes</strong></div>
-                    <div>Curso: <strong style="color:var(--color-navy)">Técnico de Programação de Informática</strong></div>
-                    <div style="text-align: right">Ano Letivo: <strong style="color:var(--color-navy)">2025 / 2026</strong></div>
+                
+                <div style="border-top: 3px solid var(--color-orange); padding-top: 35px; display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 950px; text-align: left; font-size: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>Projeto PAP: <strong style="color:var(--color-navy)">TutorAI</strong></div>
+                        <div style="text-align: right;">Autor: <strong style="color:var(--color-navy)">Jean Pierre Antunes</strong></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>Curso: <strong style="color:var(--color-navy)">Técnico de Programação de Informática</strong></div>
+                        <div style="text-align: right; white-space: nowrap;">Ano Letivo: <strong style="color:var(--color-navy)">2025 / 2026</strong></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -236,7 +278,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Contexto</p><h2>O Desafio do Ritmo Escolar</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
@@ -259,7 +301,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Proposta</p><h2>TutorAI: A Solução Inteligente</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
@@ -282,7 +324,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Métricas e Evolução</p><h2>O Reflexo do Aluno: Domínio e Progresso</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="product-split-vertical">
@@ -306,13 +348,13 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Mecanismos de Aprendizagem</p><h2>Geração de Conteúdo Dinâmico</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="product-split-vertical">
                     <div>
                         <div class="info-showcase-card">
-                            <h3><i class="fas fa-tasks" style="color:var(--color-orange)"></i> Tarefas Adaptativas</h3>
+                            <h3><i class="fas fa-tasks" style="color:var(--color-orange)"></i> Tasks Adaptativas</h3>
                             <p>Exercícios gerados em tempo real com base no perfil de escolaridade selecionado pelo estudante.</p>
                         </div>
                         <div class="info-showcase-card cyan">
@@ -329,16 +371,55 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Arquitetura</p><h2>Stack Tecnológica Concentrada</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <div class="slide-title-group"><p>Arquitetura</p><h2>Stack Tecnológica Organizada</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="stack-pure-container">
-                    <div class="stack-item-pure cyan"><i class="fab fa-react"></i><h3>React JS</h3><p>Interface Reativa</p></div>
-                    <div class="stack-item-pure orange"><i class="fas fa-palette"></i><h3>Tailwind</h3><p>Design Utilitário</p></div>
-                    <div class="stack-item-pure cyan"><i class="fas fa-box-open"></i><h3>Electron</h3><p>Software Nativo</p></div>
-                    <div class="stack-item-pure orange"><i class="fas fa-database"></i><h3>Supabase</h3><p>Cloud & Dados</p></div>
-                    <div class="stack-item-pure cyan"><i class="fas fa-network-wired"></i><h3>OpenRouter</h3><p>IA Hub</p></div>
+                <div class="stack-groups-container">
+                    
+                    <div class="stack-group-box" style="border-top: 5px solid var(--color-cyan);">
+                        <h3>Frontend</h3>
+                        <div class="stack-group-items">
+                            <div class="stack-item-grouped cyan">
+                                <i class="fab fa-react"></i>
+                                <h4>React JS</h4>
+                                <p>Interface Reativa</p>
+                            </div>
+                            <div class="stack-item-grouped orange">
+                                <i class="fas fa-palette"></i>
+                                <h4>Tailwind</h4>
+                                <p>Design Utilitário</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stack-group-box" style="border-top: 5px solid var(--color-orange);">
+                        <h3>Ambiente</h3>
+                        <div class="stack-group-items" style="justify-content: center; height: 75%;">
+                            <div class="stack-item-grouped cyan">
+                                <i class="fas fa-box-open"></i>
+                                <h4>Electron</h4>
+                                <p>Software Nativo Desktop</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stack-group-box" style="border-top: 5px solid var(--color-navy);">
+                        <h3>Backend & IA</h3>
+                        <div class="stack-group-items">
+                            <div class="stack-item-grouped orange">
+                                <i class="fas fa-database"></i>
+                                <h4>Supabase</h4>
+                                <p>Cloud & Dados</p>
+                            </div>
+                            <div class="stack-item-grouped cyan">
+                                <i class="fas fa-network-wired"></i>
+                                <h4>OpenRouter</h4>
+                                <p>IA Hub Gateway</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -346,7 +427,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Fluxo Técnico</p><h2>Ciclo de Comunicação Híbrido</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list" style="gap: 15px;">
@@ -373,20 +454,20 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Frontend</p><h2>Interface e Design</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="tech-row-container">
                     <div class="tech-block">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fab fa-react"></i><h3>React JS</h3></div>
+                            <div class="tech-label"><i class="fab fa-react"></i><h2>React JS</h2></div>
                             <div class="tech-description"><p>Biblioteca base que permite o reaproveitamento total do código visual tanto para Web quanto para Desktop via Electron.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Peças de Lego que se encaixam e funcionam em qualquer tabuleiro (browser ou app).</span></div>
                     </div>
                     <div class="tech-block cyan">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-paint-brush"></i><h3>Tailwind CSS</h3></div>
+                            <div class="tech-label"><i class="fas fa-paint-brush"></i><h2>Tailwind CSS</h2></div>
                             <div class="tech-description"><p>Framework utilitário que garante uma aplicação leve e visualmente padronizada em todos os ecrãs.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um alfaiate com moldes prontos, garantindo rapidez e precisão extrema no design.</span></div>
@@ -398,20 +479,20 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Ambiente</p><h2>Nativo Desktop vs Execução Web</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="tech-row-container">
                     <div class="tech-block cyan">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-laptop-code"></i><h3>Electron JS</h3></div>
+                            <div class="tech-label"><i class="fas fa-laptop-code"></i><h2>Electron JS</h2></div>
                             <div class="tech-description"><p>Cria um ambiente focado e isolado para o aluno, evitando que distrações do navegador prejudiquem o foco de estudo.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma moldura que transforma o site num programa real instalado localmente no PC.</span></div>
                     </div>
                     <div class="tech-block">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-globe"></i><h3>Navegador (Web)</h3></div>
+                            <div class="tech-label"><i class="fas fa-globe"></i><h2>Navegador (Web)</h2></div>
                             <div class="tech-description"><p>Execução direta no motor de JavaScript do browser, permitindo acesso imediato sem necessidade de instalação.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Aceder a um serviço público através de uma bilheteira geral sem precisar de uma chave privada.</span></div>
@@ -423,20 +504,20 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>IA Hub</p><h2>Seleção de Modelos e APIs</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="tech-row-container">
                     <div class="tech-block">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-plug"></i><h3>O que são APIs?</h3></div>
+                            <div class="tech-label"><i class="fas fa-plug"></i><h2>O que são APIs?</h2></div>
                             <div class="tech-description"><p>Contratos de comunicação que permitem ao TutorAI enviar perguntas e receber respostas estruturadas de servidores remotos.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> O empregado de mesa que recolhe o pedido e traz a refeição pronta da cozinha.</span></div>
                     </div>
                     <div class="tech-block cyan">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-brain"></i><h3>OpenRouter Gateway</h3></div>
+                            <div class="tech-label"><i class="fas fa-brain"></i><h2>OpenRouter Gateway</h2></div>
                             <div class="tech-description"><p>Plataforma agregadora onde eu <strong>defini nas configurações</strong> qual o modelo ideal (ex: Llama 3) a ser consumido, garantindo a melhor relação de custo, velocidade e coerência pedagógica.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma central telefónica estável onde eu escolho o especialista fixo que vai atender a chamada.</span></div>
@@ -448,7 +529,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Backend</p><h2>Persistência e Segurança</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="tech-row-container">
@@ -462,7 +543,7 @@
                     <div class="tech-block">
                         <div class="tech-main-info">
                             <div class="tech-label"><i class="fas fa-server"></i><h3>Supabase</h3></div>
-                            <div class="tech-description"><p>Infraestrutura assente em PostgreSQL para gestão relacional do histórico e armazenamento seguro de dados dos utilizadores.</p></div>
+                            <div class="tech-description"><p>Infraestrutura assente in PostgreSQL para gestão relacional do histórico e armazenamento seguro de dados dos utilizadores.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um sistema bancário com cofres privados invioláveis para guardar as contas dos utilizadores.</span></div>
                     </div>
@@ -472,8 +553,8 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Segurança</p><h2>Cifragem e Proteção de Dados</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <div class="slide-title-group"><p>Segurança</p><h2>Encriptação e Proteção de Dados</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
@@ -496,20 +577,20 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Performance</p><h2>Latência e Otimização</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="tech-row-container">
                     <div class="tech-block">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-stopwatch"></i><h3>Latência (&lt;5s)</h3></div>
+                            <div class="tech-label"><i class="fas fa-stopwatch"></i><h2>Latência (&lt;5s)</h2></div>
                             <div class="tech-description"><p>Métrica de atraso na transmissão. Manter este valor baixo previne a quebra de atenção do estudante no processo ativo de estudo.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> O tempo exato que decorre entre o clique no interruptor e a lâmpada acender.</span></div>
                     </div>
                     <div class="tech-block cyan">
                         <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-microchip"></i><h3>Otimização Local</h3></div>
+                            <div class="tech-label"><i class="fas fa-microchip"></i><h2>Otimização Local</h2></div>
                             <div class="tech-description"><p>Refatoração do JavaScript para garantir o menor consumo de CPU e RAM, permitindo rodar em computadores escolares antigos.</p></div>
                         </div>
                         <div class="tech-analogia-row"><span><strong>Analogia:</strong> Aliviar o peso morto de um carro para ele andar mais rápido gastando menos.</span></div>
@@ -521,7 +602,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Análise de Testes</p><h2>Compatibilidade Windows vs Linux</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
@@ -535,7 +616,7 @@
                     </div>
                     <div class="vertical-list-card">
                         <h3><i class="fas fa-vial" style="color:var(--color-orange)"></i> Rigor Técnico</h3>
-                        <p>A identificação e mitigação deste bug servem como prova empírica de que a aplicação foi testada em diferentes plataformas de hardware e sistemas operativos.</p>
+                        <p>A identification e mitigação deste bug servem como prova empírica de que a aplicação foi testada em diferentes plataformas de hardware e sistemas operativos.</p>
                     </div>
                 </div>
             </div>
@@ -544,7 +625,7 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-title-group"><p>Evolução</p><h2>Roadmap e Escalabilidade</h2></div>
-                <img class="header-logo" src="image.png" alt="Logo">
+                <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
