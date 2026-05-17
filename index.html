@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorAI - PAP Jean Pierre Antunes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* RESET E CONFIGURAÇÕES BASE */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-slide: #ffffff;
+            --color-navy: #0f172a;
+            --color-orange: #ff7a00;
+            --color-cyan: #06b6d4;
+            --text-body: #334155;
+            --text-light: #64748b;
+        }
+
+        body {
+            background-color: var(--bg-slide);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .presentation-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-slide);
+            padding: 90px 100px 50px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out;
+            z-index: 1;
+        }
+
+        .slide.active { opacity: 1; visibility: visible; z-index: 5; }
+        .slide.cover-slide { padding: 60px 100px; }
+
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: var(--color-navy); }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .slide-title-group {
+            border-left: 6px solid var(--color-orange);
+            padding-left: 20px;
+        }
+
+        .slide-title-group p {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-cyan);
+            font-weight: 700;
+        }
+
+        .slide-title-group h2 { font-size: 34px; letter-spacing: -1px; }
+        .header-logo { height: 45px; object-fit: contain; }
+
+        /* LAYOUT VERTICAL DE DUAS COLUNAS (PRODUTO) */
+        .product-split-vertical {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* NOVO LAYOUT VERTICAL EM LISTA DE LARGO SCOPE (SUBSTITUI O HORIZONTAL OPRESSIVO) */
+        .vertical-stack-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .vertical-list-card {
+            background: #f8fafc;
+            border-left: 5px solid var(--color-orange);
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            align-items: center;
+            gap: 20px;
+        }
+        .vertical-list-card.cyan { border-left-color: var(--color-cyan); }
+        
+        .vertical-list-card h3, .vertical-list-card h4 { 
+            font-size: 18px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            color: var(--color-navy);
+        }
+        .vertical-list-card p { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+
+        .info-showcase-card {
+            background: #f8fafc;
+            border-left: 5px solid var(--color-orange);
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+            margin-bottom: 15px;
+        }
+        .info-showcase-card.cyan { border-left-color: var(--color-cyan); }
+        .info-showcase-card h3 { font-size: 18px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .info-showcase-card p { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+
+        /* MOLDURAS */
+        .software-frame-dark {
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #0f172a;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .software-frame-dark img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* STACK TECNOLÓGICA */
+        .stack-pure-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .stack-item-pure { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .stack-item-pure i { font-size: 65px; margin-bottom: 15px; }
+        .stack-item-pure.cyan i { color: var(--color-cyan); }
+        .stack-item-pure.orange i { color: var(--color-orange); }
+        .stack-item-pure h3 { font-size: 24px; color: var(--color-navy); margin-bottom: 5px; }
+        .stack-item-pure p { font-size: 15px; color: var(--text-light); }
+
+        .tech-row-container { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+        .tech-block { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 6px solid var(--color-orange); border-radius: 12px; padding: 25px 30px; }
+        .tech-block.cyan { border-left-color: var(--color-cyan); }
+        .tech-main-info { display: grid; grid-template-columns: 220px 1fr; gap: 30px; align-items: flex-start; }
+        .tech-label { display: flex; align-items: center; gap: 15px; }
+        .tech-label i { font-size: 26px; color: var(--color-orange); width: 30px; text-align: center; }
+        .tech-block.cyan .tech-label i { color: var(--color-cyan); }
+        .tech-label h3 { font-size: 20px; font-weight: 700; }
+        .tech-description p { font-size: 14px; color: var(--text-body); line-height: 1.5; }
+        .tech-analogia-row { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-light); font-style: italic; }
+
+        /* NAVEGAÇÃO */
+        .nav-dock {
+            position: absolute;
+            bottom: 30px;
+            right: 100px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 8px 20px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .nav-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--color-navy); }
+        .nav-counter { font-size: 14px; font-weight: 700; color: var(--text-light); }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-wrapper">
+        
+        <div class="nav-dock">
+            <button class="nav-btn" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+            <div class="nav-counter" id="slideCounter">01 / 15</div>
+            <button class="nav-btn" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="slide cover-slide active">
+            <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="image.png" alt="Logo" style="height: 150px; margin-bottom: 20px;">
+                <h1 style="font-size: 80px; letter-spacing: -3px; line-height: 1;">Tutor<span style="color:var(--color-orange)">AI</span></h1>
+                <p style="font-size: 22px; color: var(--text-light); margin-bottom: 50px;">Aprendizagem Adaptativa Baseada em IA</p>
+                <div style="border-top: 2px solid var(--color-orange); padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 850px; text-align: left; gap: 30px; font-size: 15px;">
+                    <div>Projeto PAP: <strong style="color:var(--color-navy)">TutorAI</strong></div>
+                    <div>Autor: <strong style="color:var(--color-navy)">Jean Pierre Antunes</strong></div>
+                    <div>Curso: <strong style="color:var(--color-navy)">Técnico de Programação de Informática</strong></div>
+                    <div style="text-align: right">Ano Letivo: <strong style="color:var(--color-navy)">2025 / 2026</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Contexto</p><h2>O Desafio do Ritmo Escolar</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list">
+                    <div class="vertical-list-card">
+                        <h3><i class="fas fa-hourglass-half" style="color:var(--color-orange)"></i> Fadiga</h3>
+                        <p>Aulas longas, lineares e contínuas saturam a retenção natural do estudante ao longo do dia.</p>
+                    </div>
+                    <div class="vertical-list-card cyan">
+                        <h3><i class="fas fa-users-slash" style="color:var(--color-cyan)"></i> Limites</h3>
+                        <p>Impossibilidade física de um único docente validar e acompanhar individualmente o ritmo de 20 ou mais alunos em simultâneo.</p>
+                    </div>
+                    <div class="vertical-list-card">
+                        <h3><i class="fas fa-chart-line" style="color:var(--color-orange)"></i> Lacunas</h3>
+                        <p>Dúvidas pontuais não sanadas a tempo geram atrasos complexos e cumulativos ao longo do ano letivo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Proposta</p><h2>TutorAI: A Solução Inteligente</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list">
+                    <div class="vertical-list-card cyan">
+                        <h3><i class="fas fa-sliders-h" style="color:var(--color-cyan)"></i> Adaptativo</h3>
+                        <p>Ajuste automático da complexidade dos exercícios com base no histórico direto e nas reais dificuldades detetadas.</p>
+                    </div>
+                    <div class="vertical-list-card">
+                        <h3><i class="fas fa-graduation-cap" style="color:var(--color-orange)"></i> Didático</h3>
+                        <p>Uso de analogias práticas do quotidiano e dinâmicas de gaming para explicar conceitos puramente abstratos.</p>
+                    </div>
+                    <div class="vertical-list-card cyan">
+                        <h3><i class="fas fa-desktop" style="color:var(--color-cyan)"></i> Multiplataforma</h3>
+                        <p>Disponível tanto como aplicação nativa de Desktop para máximo isolamento, quanto via Navegador Web para acesso rápido.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Métricas e Evolução</p><h2>O Reflexo do Aluno: Domínio e Progresso</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="product-split-vertical">
+                    <div>
+                        <div class="info-showcase-card cyan">
+                            <h3><i class="fas fa-chart-pie" style="color:var(--color-cyan)"></i> Dashboard de Precisão</h3>
+                            <p>Exibição analítica imediata da percentagem de acertos e erros do utilizador distribuída pelas quatro disciplinas base: Português, Matemática, Inglês e História.</p>
+                        </div>
+                        <div class="info-showcase-card">
+                            <h3><i class="fas fa-archive" style="color:var(--color-orange)"></i> O Baú do Conhecimento</h3>
+                            <p>Espaço de consolidação. Os testes realizados com sucesso no Chat Inteligente são arquivados e listados como "domínio conquistado" na interface do aluno.</p>
+                        </div>
+                    </div>
+                    <div class="software-frame-dark" style="height: 380px;">
+                        <img src="pagina_de_estaticas.png" alt="Dashboard de Estatísticas do TutorAI">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Mecanismos de Aprendizagem</p><h2>Geração de Conteúdo Dinâmico</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="product-split-vertical">
+                    <div>
+                        <div class="info-showcase-card">
+                            <h3><i class="fas fa-tasks" style="color:var(--color-orange)"></i> Tarefas Adaptativas</h3>
+                            <p>Exercícios gerados em tempo real com base no perfil de escolaridade selecionado pelo estudante dentro da plataforma.</p>
+                        </div>
+                        <div class="info-showcase-card cyan">
+                            <h3><i class="fas fa-code-branch" style="color:var(--color-cyan)"></i> Algoritmo Estrutural</h3>
+                            <p>O algoritmo garante conteúdos 100% originais e totalmente focados nas competências e necessidades estruturais de cada disciplina.</p>
+                        </div>
+                    </div>
+                    <div class="software-frame-dark" style="height: 380px;">
+                        <img src="pagina_de_terefas.png" alt="Página de Tarefas do TutorAI">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Arquitetura</p><h2>Stack Tecnológica Concentrada</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="stack-pure-container">
+                    <div class="stack-item-pure cyan"><i class="fab fa-react"></i><h3>React JS</h3><p>Interface Reativa</p></div>
+                    <div class="stack-item-pure orange"><i class="fas fa-palette"></i><h3>Tailwind</h3><p>Design Utilitário</p></div>
+                    <div class="stack-item-pure cyan"><i class="fas fa-box-open"></i><h3>Electron</h3><p>Software Nativo</p></div>
+                    <div class="stack-item-pure orange"><i class="fas fa-database"></i><h3>Supabase</h3><p>Cloud & Dados</p></div>
+                    <div class="stack-item-pure cyan"><i class="fas fa-network-wired"></i><h3>OpenRouter</h3><p>IA Inteligente</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Fluxo Técnico</p><h2>Ciclo de Comunicação Híbrido</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list" style="gap: 12px;">
+                    <div class="vertical-list-card" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                        <h4>1. Input Local</h4>
+                        <p>O utilizador interage de forma fluida com a interface construída com blocos em React + Tailwind CSS.</p>
+                    </div>
+                    <div class="vertical-list-card cyan" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                        <h4>2. Execução</h4>
+                        <p><strong>Ambiente Desktop:</strong> O Electron processa a chamada local nativa. / <strong>Ambiente Web:</strong> O browser faz as requisições HTTPS normais.</p>
+                    </div>
+                    <div class="vertical-list-card" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                        <h4>3. IA Hub</h4>
+                        <p>O OpenRouter intermedeia e escolhe inteligentemente o melhor modelo de IA remoto para gerar o feedback ideal.</p>
+                    </div>
+                    <div class="vertical-list-card cyan" style="grid-template-columns: 160px 1fr; padding: 15px 25px;">
+                        <h4>4. Cloud & Dados</h4>
+                        <p>Tudo é sincronizado e guardado de forma persistente e segura na infraestrutura de base de dados do Supabase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Frontend</p><h2>Interface e Design</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-row-container">
+                    <div class="tech-block">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fab fa-react"></i><h3>React JS</h3></div>
+                            <div class="tech-description"><p>Biblioteca para construir interfaces modulares. É a base única do ecossistema, permitindo reaproveitar 100% do design tanto no ambiente web quanto no desktop.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Peças de Lego independentes que se encaixam e funcionam em qualquer tabuleiro (browser ou app).</span></div>
+                    </div>
+                    <div class="tech-block cyan">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-paint-brush"></i><h3>Tailwind CSS</h3></div>
+                            <div class="tech-description"><p>Framework focado em design utilitário. Elimina redundância e arquivos pesados, garantindo uma aplicação leve e padronizada visualmente.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um alfaiate com moldes prontos, garantindo rapidez e precisão extrema no design.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Ambiente</p><h2>Nativo Desktop vs Execução Web</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-row-container">
+                    <div class="tech-block cyan">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-laptop-code"></i><h3>Electron JS (Desktop)</h3></div>
+                            <div class="tech-description"><p>Runtime que encapsula a interface num executável nativo (.exe). Cria um ecossistema focado e isolado para evitar que distrações da navegação comum prejudiquem o foco do aluno.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma moldura que transforma o site num programa real instalado localmente no PC.</span></div>
+                    </div>
+                    <div class="tech-block">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-globe"></i><h3>Navegador (Web)</h3></div>
+                            <div class="tech-description"><p>Execução direta no browser. O código React corre na engine local (V8/SpiderMonkey) do próprio navegador do utilizador, dispensando instalações e facilitando o acesso rápido.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Aceder a um serviço público através de uma bilheteira geral sem precisar de uma chave privada.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>IA Hub</p><h2>Protocolos de Dados e IA</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-row-container">
+                    <div class="tech-block">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-plug"></i><h3>O que são APIs?</h3></div>
+                            <div class="tech-description"><p>Pontes de comunicação reguladas que permitem que o TutorAI envie pedidos locais e receba respostas rápidas de servidores de inteligência artificial remotos.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> O empregado de mesa que recolhe o pedido e traz a refeição pronta da cozinha.</span></div>
+                    </div>
+                    <div class="tech-block cyan">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-brain"></i><h3>OpenRouter</h3></div>
+                            <div class="tech-description"><p>Gateway inteligente de IA. Se um modelo falhar ou ficar lento, o sistema muda o tráfego de forma automatizada e impercetível (Failover estrutural).</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma central telefónica inteligente que te conecta instantaneamente ao melhor perito disponível.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Backend</p><h2>Persistência e Segurança</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-row-container">
+                    <div class="tech-block cyan">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-cloud"></i><h3>Persistência na Cloud</h3></div>
+                            <div class="tech-description"><p>Gravação durável de dados em servidores dedicados. Garante que os níveis de domínio e notas do aluno sobrevivam estáveis ao fecho do programa.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um cofre virtual infinito e seguro, sempre sincronizado via Web.</span></div>
+                    </div>
+                    <div class="tech-block">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-server"></i><h3>Supabase</h3></div>
+                            <div class="tech-description"><p>Infraestrutura estável assente em PostgreSQL. Responsável pela gestão relacional do histórico e armazenamento seguro de tokens de sessão do utilizador.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um sistema bancário com cofres privados invioláveis para guardar as contas dos utilizadores.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Segurança</p><h2>Cifragem e Proteção de Dados</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list">
+                    <div class="vertical-list-card">
+                        <h3><i class="fas fa-user-shield" style="color:var(--color-orange)"></i> JWT</h3>
+                        <p>Tokens cifrados que validam e seguram a identidade do aluno a cada ciclo de uso, eliminando a exposição direta de dados confidenciais.</p>
+                    </div>
+                    <div class="vertical-list-card cyan">
+                        <h3><i class="fas fa-key" style="color:var(--color-cyan)"></i> Hashing Robust</h3>
+                        <p>Passwords guardadas com chaves criptográficas de sentido único, tornando as credenciais completamente ilegíveis no banco de dados.</p>
+                    </div>
+                    <div class="vertical-list-card">
+                        <h3><i class="fas fa-lock" style="color:var(--color-orange)"></i> RLS (Row Level Security)</h3>
+                        <p>Isolamento estrito ao nível da tabela do Supabase. Cada estudante só consegue ler ou editar exclusivamente os seus próprios registos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Performance</p><h2>Latência e Otimização</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-row-container">
+                    <div class="tech-block">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-stopwatch"></i><h3>Latência (&lt;5s)</h3></div>
+                            <div class="tech-description"><p>Métrica de atraso físico na transmissão de dados da IA. Manter este valor baixo previne a quebra de atenção e o cansaço do estudante no processo ativo de estudo.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> O tempo exato que decorre entre o clique no interruptor e a lâmpada acender.</span></div>
+                    </div>
+                    <div class="tech-block cyan">
+                        <div class="tech-main-info">
+                            <div class="tech-label"><i class="fas fa-microchip"></i><h3>Otimização</h3></div>
+                            <div class="tech-description"><p>Refatoração do JavaScript e queries limpas para garantir o menor consumo possível de CPU e memória RAM local, permitindo rodar em computadores escolares antigos.</p></div>
+                        </div>
+                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Aliviar o peso morto de um carro para ele andar mais rápido gastando menos.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Visão de Futuro</p><h2>Evolução e Escalabilidade</h2></div>
+                <img class="header-logo" src="image.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list">
+                    <div class="vertical-list-card cyan">
+                        <h3><i class="fas fa-mobile-alt" style="color:var(--color-cyan)"></i> Ecossistema Mobile</h3>
+                        <p>Migração modular do código core do frontend para React Native, possibilitando o estudo em smartphones iOS e Android.</p>
+                    </div>
+                    <div class="vertical-list-card">
+                        <h3><i class="fas fa-users" style="color:var(--color-orange)"></i> Painel de Tutores</h3>
+                        <p>Criação de dashboards web específicos para encarregados de educação e professores acompanharem em tempo real a evolução.</p>
+                    </div>
+                    <div class="vertical-stack-list" style="gap: 0;">
+                        <div class="vertical-list-card cyan">
+                            <h3><i class="fas fa-gamepad" style="color:var(--color-cyan)"></i> Gamificação Avançada</h3>
+                            <p>Implementação de tabelas de liderança escolares, conquistas interativas e recompensas visuais integradas de forma direta ao Baú.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide cover-slide">
+            <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h2 style="font-size: 70px;">Muito Obrigado!</h2>
+                <p style="font-size: 22px; color: var(--text-light); max-width: 700px; margin-top: 20px; line-height: 1.6;">
+                    "A tecnologia serve para personalizar o percurso de aprendizagem, respeitando a biologia do foco de cada estudante."
+                </p>
+                <div style="margin-top: 50px; color: var(--color-navy); font-weight: 700;">
+                    Jean Pierre Antunes | TutorAI PAP 2026
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slideCounter');
+        
+        function updateNav() {
+            const index = String(currentSlideIndex + 1).padStart(2, '0');
+            const total = String(slides.length).padStart(2, '0');
+            counter.innerText = `${index} / ${total}`;
+        }
+        
+        function changeSlide(dir) {
+            slides[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + dir + slides.length) % slides.length;
+            slides[currentSlideIndex].classList.add('active');
+            updateNav();
+        }
+        
+        // Atalhos de teclado
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+    </script>
+</body>
+</html>
