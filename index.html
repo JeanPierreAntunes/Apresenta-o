@@ -6,244 +6,172 @@
     <title>TutorAI - PAP Jean Pierre Antunes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* RESET E CONFIGURAÇÕES BASE */
+        /* ==========================================
+           1. SETUP BASE & ESTRUTURA GLOBAL
+           ========================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --bg-slide: #ffffff;
+            --bg-slide: #fafafa;
             --color-navy: #0f172a;
             --color-orange: #ff7a00;
             --color-cyan: #06b6d4;
             --text-body: #334155;
             --text-light: #64748b;
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.05);
         }
-
         body {
-            background-color: var(--bg-slide);
+            background-color: #111;
             font-family: 'Inter', sans-serif;
             overflow: hidden;
             width: 100vw;
             height: 100vh;
         }
-
         .presentation-wrapper {
             position: relative;
             width: 100vw;
             height: 100vh;
+            background: var(--bg-slide);
         }
-
         .slide {
             position: absolute;
             width: 100vw;
             height: 100vh;
             background-color: var(--bg-slide);
-            padding: 100px 120px 60px 120px;
+            padding: 6vh 6vw;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease-in-out;
+            transform: translateY(15px);
+            transition: all 0.4s ease-in-out;
             z-index: 1;
         }
-
-        .slide.active { opacity: 1; visibility: visible; z-index: 5; }
-        .slide.cover-slide { padding: 60px 120px; }
-
+        .slide.active { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0);
+            z-index: 5; 
+        }
         .content-area {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             width: 100%;
+            margin-top: 2vh;
         }
 
+        /* ==========================================
+           2. CABEÇALHOS & TIPOGRAFIA
+           ========================================== */
         h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: var(--color-navy); }
+        .slide-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5vh; }
+        .slide-title-group { border-left: 8px solid var(--color-orange); padding-left: 25px; }
+        .slide-title-group p { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: var(--color-cyan); font-weight: 700; margin-bottom: 5px; }
+        .slide-title-group h2 { font-size: 2.3rem; letter-spacing: -1px; line-height: 1.1; }
+        .header-logo { height: 50px; object-fit: contain; }
 
-        .slide-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 25px;
-        }
-
-        .slide-title-group {
-            border-left: 8px solid var(--color-orange);
-            padding-left: 25px;
-        }
-
-        .slide-title-group p {
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--color-cyan);
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .slide-title-group h2 { font-size: 42px; letter-spacing: -1px; }
-        .header-logo { height: 55px; object-fit: contain; }
-
-        /* LAYOUT VERTICAL DE DUAS COLUNAS (PRODUTO) */
-        .product-split-vertical {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            height: 100%;
-        }
-
-        /* LAYOUT VERTICAL EM LISTA */
-        .vertical-stack-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .vertical-list-card {
-            background: #f8fafc;
+        /* ==========================================
+           3. COMPONENTES REUTILIZÁVEIS (CARDS & BLOCKS)
+           ========================================== */
+        /* Cartões de Listas Verticais e Grelhas */
+        .info-card {
+            background: #ffffff;
             border-left: 6px solid var(--color-orange);
-            padding: 25px 35px;
+            padding: 2.5vh 30px;
             border-radius: 12px;
-            box-shadow: 0 6px 166px rgba(15, 23, 42, 0.03);
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            align-items: center;
-            gap: 30px;
+            box-shadow: var(--shadow-md);
+            text-align: left;
         }
-        .vertical-list-card.cyan { border-left-color: var(--color-cyan); }
-        .vertical-list-card.red { border-left-color: #ef4444; }
-        
-        .vertical-list-card h3, .vertical-list-card h4 { 
-            font-size: 24px;
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            color: var(--color-navy);
-        }
-        .vertical-list-card h3 i, .vertical-list-card h4 i { font-size: 26px; }
-        .vertical-list-card p { font-size: 18px; color: var(--text-body); line-height: 1.6; }
+        .info-card.cyan { border-left-color: var(--color-cyan); }
+        .info-card.red { border-left-color: #ef4444; }
+        .info-card h3 { font-size: 1.25rem; display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+        .info-card p { font-size: 1.05rem; color: var(--text-body); line-height: 1.5; }
 
-        .info-showcase-card {
-            background: #f8fafc;
-            border-left: 6px solid var(--color-orange);
-            padding: 25px 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
-            margin-bottom: 20px;
+        /* Blocos Técnicos Grandes (Slides de Frontend, Dados, etc.) */
+        .tech-block { 
+            background: #ffffff; 
+            border-left: 8px solid var(--color-orange); 
+            border-radius: 16px; 
+            padding: 3vh 35px; 
+            margin-bottom: 2.5vh;
+            box-shadow: var(--shadow-md);
         }
-        .info-showcase-card.cyan { border-left-color: var(--color-cyan); }
-        .info-showcase-card h3 { font-size: 22px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; }
-        .info-showcase-card h3 i { font-size: 24px; }
-        .info-showcase-card p { font-size: 17px; color: var(--text-body); line-height: 1.6; }
+        .tech-block.cyan { border-left-color: var(--color-cyan); }
+        .tech-main-info { display: grid; grid-template-columns: 260px 1fr; gap: 35px; align-items: center; }
+        .tech-label { display: flex; align-items: center; gap: 20px; }
+        .tech-label i { font-size: 40px; color: var(--color-orange); width: 45px; text-align: center; }
+        .tech-block.cyan .tech-label i { color: var(--color-cyan); }
+        .tech-label h3 { font-size: 1.5rem; font-weight: 700; }
+        .tech-description p { font-size: 1.1rem; color: var(--text-body); line-height: 1.5; }
+        .tech-analogy { margin-top: 12px; padding-top: 12px; border-top: 1px dashed #e2e8f0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-light); font-style: italic; }
 
-        /* MOLDURAS SOFTWARE */
-        .software-frame-dark {
-            border: 2px solid #1e293b;
+        /* Renderização de Imagens de Software */
+        .software-frame {
+            border: 2px solid #e2e8f0;
             border-radius: 16px;
             overflow: hidden;
             background: #0f172a;
-            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.18);
+            box-shadow: var(--shadow-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            height: 52vh;
         }
+        .software-frame img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* ==========================================
+           4. ESTRUTURAS DE LAYOUT (SKELETONS)
+           ========================================== */
+        /* Layout 1: Lista Vertical Simples */
+        .vertical-stack-list { display: flex; flex-direction: column; gap: 2vh; width: 100%; max-width: 1000px; }
+        .vertical-stack-list .info-card { display: grid; grid-template-columns: 280px 1fr; align-items: center; gap: 35px; opacity: 0; transform: translateX(-30px); }
         
-        .software-frame-dark img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .slide.active .info-card:nth-child(1) { animation: slideIn 0.4s forwards 0.1s; }
+        .slide.active .info-card:nth-child(2) { animation: slideIn 0.4s forwards 0.2s; }
+        .slide.active .info-card:nth-child(3) { animation: slideIn 0.4s forwards 0.3s; }
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
 
-        /* ESTRUTURA DA STACK DIVIDIDA POR GRUPOS VISUAIS */
-        .stack-groups-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Layout 2: Duas Colunas (Texto + Imagem ou Código + Explicação) */
+        .split-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4vw; align-items: center; height: 100%; }
+        .split-layout.tech-mode { grid-template-columns: 1fr 1.3fr; gap: 40px; height: 68vh; align-items: stretch; }
+        .tech-explanation-grid { display: flex; flex-direction: column; gap: 15px; justify-content: center; }
 
-        .stack-group-box {
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
-        }
+        /* Layout 3: Grelha por Grupos (Stack Tecnológica) */
+        .grid-groups { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; max-width: 1100px; width: 100%; margin: 0 auto; }
+        .group-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 3vh 25px; text-align: center; box-shadow: var(--shadow-md); display: flex; flex-direction: column; }
+        .group-box h3 { font-size: 1.05rem; margin-bottom: 2.5vh; padding-bottom: 10px; border-bottom: 2px dashed #e2e8f0; text-transform: uppercase; letter-spacing: 1px; color: var(--color-navy); }
+        .group-items { display: flex; flex-direction: column; gap: 3vh; flex-grow: 1; justify-content: center; }
+        .group-item-node { display: flex; flex-direction: column; align-items: center; }
+        .group-item-node i { font-size: 38px; margin-bottom: 6px; }
+        .group-item-node.cyan i { color: var(--color-cyan); }
+        .group-item-node.orange i { color: var(--color-orange); }
+        .group-item-node h4 { font-size: 1.2rem; margin-bottom: 2px; }
+        .group-item-node p { font-size: 0.95rem; color: var(--text-light); font-weight: 500; }
 
-        .stack-group-box h3 {
-            font-size: 24px;
-            color: var(--color-navy);
-            margin-bottom: 25px;
-            padding-bottom: 12px;
-            border-bottom: 2px dashed #cbd5e1;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        /* ==========================================
+           5. JANELA DE CÓDIGO & ÁRVORE DE DIRETÓRIOS
+           ========================================== */
+        .code-window { background: #0f172a; color: #e2e8f0; border-radius: 16px; padding: 30px; font-family: 'Fira Code', monospace; font-size: 0.85rem; line-height: 1.6; overflow-y: auto; box-shadow: var(--shadow-lg); border: 1px solid #1e293b; }
+        .tree-accent { color: var(--color-cyan); font-weight: bold; }
+        .tree-file { color: #94a3b8; }
+        .tree-folder { color: #f59e0b; font-weight: 600; }
+        .keyword { color: #f472b6; }
+        .function-name { color: #38bdf8; }
+        .string-literal { color: #4ade80; }
+        .comment { color: #64748b; font-style: italic; }
 
-        .stack-group-items {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .stack-item-grouped i {
-            font-size: 50px;
-            margin-bottom: 8px;
-        }
-        .stack-item-grouped.cyan i { color: var(--color-cyan); }
-        .stack-item-grouped.orange i { color: var(--color-orange); }
-
-        .stack-item-grouped h4 {
-            font-size: 22px;
-            color: var(--color-navy);
-            margin-bottom: 4px;
-        }
-
-        .stack-item-grouped p {
-            font-size: 16px;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .tech-row-container { display: flex; flex-direction: column; gap: 25px; width: 100%; }
-        .tech-block { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 8px solid var(--color-orange); border-radius: 16px; padding: 30px 40px; }
-        .tech-block.cyan { border-left-color: var(--color-cyan); }
-        .tech-main-info { display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: center; }
-        .tech-label { display: flex; align-items: center; gap: 20px; }
-        .tech-label i { font-size: 36px; color: var(--color-orange); width: 40px; text-align: center; }
-        .tech-block.cyan .tech-label i { color: var(--color-cyan); }
-        .tech-label h3 { font-size: 26px; font-weight: 700; }
-        .tech-description p { font-size: 18px; color: var(--text-body); line-height: 1.6; }
-        .tech-analogia-row { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--text-light); font-style: italic; }
-
-        /* NAVEGAÇÃO */
-        .nav-dock {
-            position: absolute;
-            bottom: 35px;
-            right: 120px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 12px 28px;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            z-index: 100;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
-        }
-        .nav-btn { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--color-navy); }
-        .nav-counter { font-size: 18px; font-weight: 700; color: var(--text-light); }
+        /* ==========================================
+           6. INTERFACE DE NAVEGAÇÃO
+           ========================================== */
+        .nav-dock { position: absolute; bottom: 4vh; right: 6vw; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 12px 30px; border-radius: 100px; display: flex; align-items: center; gap: 25px; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .nav-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--color-navy); transition: 0.2s; width: 35px; }
+        .nav-btn:hover { color: var(--color-orange); transform: scale(1.2); }
+        .nav-counter { font-size: 1rem; font-weight: 700; color: var(--text-light); }
     </style>
 </head>
 <body>
@@ -252,24 +180,24 @@
         
         <div class="nav-dock">
             <button class="nav-btn" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-            <div class="nav-counter" id="slideCounter">01 / 16</div>
+            <div class="nav-counter" id="slideCounter">01 / 18</div>
             <button class="nav-btn" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
 
-        <div class="slide cover-slide active">
+        <div class="slide active">
             <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <img src="logo.png" alt="Logo" style="height: 180px; margin-bottom: 25px;">
-                <h1 style="font-size: 95px; letter-spacing: -3px; line-height: 1;">Tutor<span style="color:var(--color-orange)">AI</span></h1>
-                <p style="font-size: 26px; color: var(--text-light); margin-bottom: 60px;">Aprendizagem Adaptativa Baseada em IA</p>
+                <img src="logo.png" alt="Logo" style="height: 18vh; max-height: 160px; margin-bottom: 3vh;">
+                <h1 style="font-size: 5.5rem; letter-spacing: -3px; line-height: 1; margin-bottom: 1vh;">Tutor<span style="color:var(--color-orange)">AI</span></h1>
+                <p style="font-size: 1.5rem; color: var(--text-light); margin-bottom: 8vh; font-weight: 500;">Aprendizagem Adaptativa Baseada em Inteligência Artificial</p>
                 
-                <div style="border-top: 3px solid var(--color-orange); padding-top: 35px; display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 950px; text-align: left; font-size: 18px;">
+                <div style="border-top: 2px solid #e2e8f0; padding-top: 4vh; display: flex; flex-direction: column; gap: 2vh; width: 100%; max-width: 85%; text-align: left; font-size: 1.15rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>Projeto PAP: <strong style="color:var(--color-navy)">TutorAI</strong></div>
                         <div style="text-align: right;">Autor: <strong style="color:var(--color-navy)">Jean Pierre Antunes</strong></div>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <div>Curso: <strong style="color:var(--color-navy)">Técnico de Programação de Informática</strong></div>
-                        <div style="text-align: right; white-space: nowrap;">Ano Letivo: <strong style="color:var(--color-navy)">2025 / 2026</strong></div>
+                        <div style="text-align: right; white-space: nowrap;">Ano Letivo: <strong style="color:var(--color-navy)">2023 / 2026</strong></div>
                     </div>
                 </div>
             </div>
@@ -277,45 +205,22 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Contexto</p><h2>O Desafio do Ritmo Escolar</h2></div>
+                <div class="slide-title-group"><p>Contexto escolar</p><h2>O Desafio do Ritmo de Aprendizagem</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-hourglass-half" style="color:var(--color-orange)"></i> Fadiga</h3>
-                        <p>Aulas longas e lineares saturam a retenção natural do estudante ao longo do dia escolar.</p>
+                    <div class="info-card">
+                        <h3><i class="fas fa-hourglass-half" style="color:var(--color-orange)"></i> Fadiga Cognitiva</h3>
+                        <p>Exposições teóricas longas e lineares esgotam a capacidade de retenção natural do estudante ao longo do dia letivo.</p>
                     </div>
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-users-slash" style="color:var(--color-cyan)"></i> Limites</h3>
-                        <p>Impossibilidade física de um docente acompanhar individualmente o ritmo de 20 ou mais alunos em simultâneo.</p>
+                    <div class="info-card cyan">
+                        <h3><i class="fas fa-users-slash" style="color:var(--color-cyan)"></i> Limitações de Ensino</h3>
+                        <p>Impossibilidade física de monitorizar e adaptar o ensino individualmente a ritmos diferentes de múltiplos alunos em simultâneo.</p>
                     </div>
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-chart-line" style="color:var(--color-orange)"></i> Lacunas</h3>
-                        <p>Dúvidas pontuais geram atrasos cumulativos que comprometem o desempenho final do ano letivo.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="slide-header">
-                <div class="slide-title-group"><p>Proposta</p><h2>TutorAI: A Solução Inteligente</h2></div>
-                <img class="header-logo" src="logo.png" alt="Logo">
-            </div>
-            <div class="content-area">
-                <div class="vertical-stack-list">
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-sliders-h" style="color:var(--color-cyan)"></i> Adaptativo</h3>
-                        <p>Ajuste automático da complexidade dos exercícios com base no histórico direto de dificuldades do utilizador.</p>
-                    </div>
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-graduation-cap" style="color:var(--color-orange)"></i> Didático</h3>
-                        <p>Uso de analogias práticas e dinâmicas de gaming para explicar conceitos puramente abstratos.</p>
-                    </div>
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-desktop" style="color:var(--color-cyan)"></i> Multiplataforma</h3>
-                        <p>Disponível tanto como aplicação nativa Desktop quanto via Navegador Web para máxima acessibilidade.</p>
+                    <div class="info-card">
+                        <h3><i class="fas fa-chart-line" style="color:var(--color-orange)"></i> Lacunas Cumulativas</h3>
+                        <p>Pequenas dúvidas não esclarecidas a tempo geram atrasos na matéria que comprometem o aproveitamento final.</p>
                     </div>
                 </div>
             </div>
@@ -323,23 +228,27 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Métricas e Evolução</p><h2>O Reflexo do Aluno: Domínio e Progresso</h2></div>
+                <div class="slide-title-group"><p>Proposta Tecnológica</p><h2>TutorAI: Plataforma de Estudo Inteligente</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="product-split-vertical">
-                    <div>
-                        <div class="info-showcase-card cyan">
-                            <h3><i class="fas fa-chart-pie" style="color:var(--color-cyan)"></i> Dashboard de Precisão</h3>
-                            <p>Exibição analítica da percentagem de acertos e erros distribuída pelas quatro disciplinas base: Português, Matemática, Inglês e História.</p>
+                <div class="split-layout">
+                    <div class="tech-explanation-grid">
+                        <div class="info-card cyan">
+                            <h3><i class="fas fa-sliders-h" style="color:var(--color-cyan)"></i> Algoritmo Adaptativo</h3>
+                            <p>Ajuste automático da complexidade e da tipologia dos exercícios com base no histórico em tempo real de erros e acertos do utilizador.</p>
                         </div>
-                        <div class="info-showcase-card">
-                            <h3><i class="fas fa-archive" style="color:var(--color-orange)"></i> O Baú do Conhecimento</h3>
-                            <p>Os testes concluídos com sucesso no Chat Inteligente são arquivados e listados como "domínio conquistado" na interface do aluno.</p>
+                        <div class="info-card">
+                            <h3><i class="fas fa-graduation-cap" style="color:var(--color-orange)"></i> Abordagem Didática</h3>
+                            <p>Explicação de conceitos abstratos através de analogias práticas do quotidiano e dinâmicas inspiradas em mecânicas de jogo.</p>
+                        </div>
+                        <div class="info-card cyan">
+                            <h3><i class="fas fa-desktop" style="color:var(--color-cyan)"></i> Flexibilidade Híbrida</h3>
+                            <p>Disponibilização do ecossistema tanto em formato de aplicação nativa para computador como via navegador web.</p>
                         </div>
                     </div>
-                    <div class="software-frame-dark" style="height: 420px;">
-                        <img src="pagina_de_estaticas.png" alt="Dashboard de Estatísticas">
+                    <div class="software-frame">
+                        <img src="dasbord.png" alt="Dashboard Principal do TutorAI">
                     </div>
                 </div>
             </div>
@@ -347,22 +256,46 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Mecanismos de Aprendizagem</p><h2>Geração de Conteúdo Dinâmico</h2></div>
+                <div class="slide-title-group"><p>Métricas de Desempenho</p><h2>O Reflexo do Aluno: Domínio e Análise</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="product-split-vertical">
-                    <div>
-                        <div class="info-showcase-card">
-                            <h3><i class="fas fa-tasks" style="color:var(--color-orange)"></i> Tasks Adaptativas</h3>
-                            <p>Exercícios gerados em tempo real com base no perfil de escolaridade selecionado pelo estudante.</p>
+                <div class="split-layout">
+                    <div class="tech-explanation-grid">
+                        <div class="info-card cyan">
+                            <h3><i class="fas fa-chart-pie" style="color:var(--color-cyan)"></i> Painel Analítico</h3>
+                            <p>Estatísticas detalhadas da percentagem de proficiência distribuída pelas disciplinas fundamentais: Português, Matemática, Inglês e História.</p>
                         </div>
-                        <div class="info-showcase-card cyan">
-                            <h3><i class="fas fa-code-branch" style="color:var(--color-cyan)"></i> Algoritmo Estrutural</h3>
-                            <p>Garante conteúdos 100% originais e focados nas competências pedagógicas de cada disciplina.</p>
+                        <div class="info-card">
+                            <h3><i class="fas fa-archive" style="color:var(--color-orange)"></i> Baú do Conhecimento</h3>
+                            <p>Repositório onde as avaliações superadas são catalogadas e arquivadas como competências adquiridas pelo estudante.</p>
                         </div>
                     </div>
-                    <div class="software-frame-dark" style="height: 420px;">
+                    <div class="software-frame">
+                        <img src="pagina_de_estaticas.png" alt="Painel de Estatísticas">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Mecanismos de Aprendizagem</p><h2>Geração Dinâmica de Conteúdos</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="split-layout">
+                    <div class="tech-explanation-grid">
+                        <div class="info-card">
+                            <h3><i class="fas fa-tasks" style="color:var(--color-orange)"></i> Tarefas Customizadas</h3>
+                            <p>Geração imediata de cadernos de exercícios estruturados em total conformidade com o nível de escolaridade do utilizador.</p>
+                        </div>
+                        <div class="info-card cyan">
+                            <h3><i class="fas fa-code-branch" style="color:var(--color-cyan)"></i> Engenharia de Prompts</h3>
+                            <p>Instruções estritas enviadas à IA para produzir conteúdos didáticos originais, cientificamente corretos e focados nas metas pedagógicas.</p>
+                        </div>
+                    </div>
+                    <div class="software-frame">
                         <img src="pagina_de_terefas.png" alt="Página de Tarefas">
                     </div>
                 </div>
@@ -371,81 +304,69 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Arquitetura</p><h2>Stack Tecnológica Organizada</h2></div>
+                <div class="slide-title-group"><p>Arquitetura do Sistema</p><h2>Stack Tecnológica Organizada</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="stack-groups-container">
-                    
-                    <div class="stack-group-box" style="border-top: 5px solid var(--color-cyan);">
+                <div class="grid-groups">
+                    <div class="group-box" style="border-top: 6px solid var(--color-cyan);">
                         <h3>Frontend</h3>
-                        <div class="stack-group-items">
-                            <div class="stack-item-grouped cyan">
-                                <i class="fab fa-react"></i>
-                                <h4>React JS</h4>
-                                <p>Interface Reativa</p>
-                            </div>
-                            <div class="stack-item-grouped orange">
-                                <i class="fas fa-palette"></i>
-                                <h4>Tailwind</h4>
-                                <p>Design Utilitário</p>
-                            </div>
+                        <div class="group-items">
+                            <div class="group-item-node cyan"><i class="fab fa-react"></i><h4>React JS</h4><p>Interface Reativa</p></div>
+                            <div class="group-item-node orange"><i class="fas fa-palette"></i><h4>Tailwind CSS</h4><p>Design Utilitário</p></div>
                         </div>
                     </div>
-
-                    <div class="stack-group-box" style="border-top: 5px solid var(--color-orange);">
+                    <div class="group-box" style="border-top: 6px solid var(--color-orange);">
                         <h3>Ambiente</h3>
-                        <div class="stack-group-items" style="justify-content: center; height: 75%;">
-                            <div class="stack-item-grouped cyan">
-                                <i class="fas fa-box-open"></i>
-                                <h4>Electron</h4>
-                                <p>Software Nativo Desktop</p>
-                            </div>
+                        <div class="group-items">
+                            <div class="group-item-node cyan"><i class="fas fa-box-open"></i><h4>Electron JS</h4><p>Aplicação Desktop</p></div>
                         </div>
                     </div>
-
-                    <div class="stack-group-box" style="border-top: 5px solid var(--color-navy);">
+                    <div class="group-box" style="border-top: 6px solid var(--color-navy);">
                         <h3>Backend & IA</h3>
-                        <div class="stack-group-items">
-                            <div class="stack-item-grouped orange">
-                                <i class="fas fa-database"></i>
-                                <h4>Supabase</h4>
-                                <p>Cloud & Dados</p>
-                            </div>
-                            <div class="stack-item-grouped cyan">
-                                <i class="fas fa-network-wired"></i>
-                                <h4>OpenRouter</h4>
-                                <p>IA Hub Gateway</p>
-                            </div>
+                        <div class="group-items">
+                            <div class="group-item-node orange"><i class="fas fa-database"></i><h4>Supabase</h4><p>Persistência Cloud</p></div>
+                            <div class="group-item-node cyan"><i class="fas fa-network-wired"></i><h4>OpenRouter</h4><p>Gateway IA</p></div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Fluxo Técnico</p><h2>Ciclo de Comunicação Híbrido</h2></div>
+                <div class="slide-title-group"><p>Engenharia de Software</p><h2>Arquitetura de Código: Estrutura Modular</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="vertical-stack-list" style="gap: 15px;">
-                    <div class="vertical-list-card" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
-                        <h4>1. Input Local</h4>
-                        <p>O utilizador interage com a interface estruturada em React + Tailwind CSS.</p>
+                <div class="split-layout tech-mode">
+                    <div class="code-window">
+                        <span class="tree-accent">pap/</span><br>
+                        ├── <span class="tree-folder">electron/</span> <span class="comment">(Core Nativo)</span><br>
+                        │   ├── <span class="tree-file">main.ts</span><br>
+                        │   └── <span class="tree-file">preload.ts</span><br>
+                        ├── <span class="tree-folder">src/</span> <span class="comment">(Código UI React)</span><br>
+                        │   ├── <span class="tree-folder">components/</span><br>
+                        │   │   ├── <span class="tree-folder">layout/</span><br>
+                        │   │   └── <span class="tree-folder">ui/</span><br>
+                        │   ├── <span class="tree-folder">features/</span> <span class="comment">(Módulos Isolados)</span><br>
+                        │   │   ├── <span class="tree-folder">auth/</span><br>
+                        │   │   ├── <span class="tree-folder">classroom/</span><br>
+                        │   │   └── <span class="tree-folder">tasks/</span><br>
+                        │   └── <span class="tree-folder">services/</span> <span class="comment">(Motores de Dados)</span><br>
+                        │       ├── <span class="tree-file">ai-service.ts</span><br>
+                        │       └── <span class="tree-file">supabase.ts</span><br>
+                        └── <span class="tree-file">vite.config.ts</span>
                     </div>
-                    <div class="vertical-list-card cyan" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
-                        <h4>2. Execução</h4>
-                        <p><strong>Desktop:</strong> O Electron orquestra o pedido nativo. / <strong>Web:</strong> O browser faz requisições HTTPS diretas.</p>
-                    </div>
-                    <div class="vertical-list-card" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
-                        <h4>3. IA Hub</h4>
-                        <p>O OpenRouter faz a ponte segura enviando o pedido para o modelo remoto configurado pelo programador.</p>
-                    </div>
-                    <div class="vertical-list-card cyan" style="grid-template-columns: 200px 1fr; padding: 20px 35px;">
-                        <h4>4. Cloud & Dados</h4>
-                        <p>A base de dados do Supabase persiste as notas e o histórico do aluno em tempo real.</p>
+                    <div class="tech-explanation-grid">
+                        <div class="info-card">
+                            <h3><i class="fas fa-boxes" style="color:var(--color-orange)"></i> Feature-Driven Development</h3>
+                            <p>O projeto foi segmentado na diretoria <code>features/</code>. Cada funcionalidade autónoma agrupa os seus componentes e regras lógicas, garantindo escalabilidade limpa.</p>
+                        </div>
+                        <div class="info-card cyan">
+                            <h3><i class="fas fa-layer-group" style="color:var(--color-cyan)"></i> Separação de Responsabilidades</h3>
+                            <p>Diferenciação clara entre componentes puramente visuais e lógica de negócio. A camada visual consome dados sem acoplamento direto com a infraestrutura.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -453,49 +374,35 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Frontend</p><h2>Interface e Design</h2></div>
+                <div class="slide-title-group"><p>Backbone Tecnológico</p><h2>Camada de Inteligência: AIService.ts</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="tech-row-container">
-                    <div class="tech-block">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fab fa-react"></i><h2>React JS</h2></div>
-                            <div class="tech-description"><p>Biblioteca base que permite o reaproveitamento total do código visual tanto para Web quanto para Desktop via Electron.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Peças de Lego que se encaixam e funcionam em qualquer tabuleiro (browser ou app).</span></div>
+                <div class="split-layout tech-mode">
+                    <div class="code-window">
+                        <span class="keyword">const</span> <span class="function-name">fetchComRetry</span> = <span class="keyword">async</span> (url, opt, maxRetries = 3) => {<br>
+                        &nbsp;&nbsp;<span class="keyword">for</span> (<span class="keyword">let</span> i = 0; i < maxRetries; i++) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function-name">fetch</span>(url, opt);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (res.ok) <span class="keyword">return</span> res;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (res.status === 429) <span class="keyword">await</span> <span class="function-name">wait</span>(2000 * (i+1));<br>
+                        &nbsp;&nbsp;}<br>
+                        };<br><br>
+                        <span class="keyword">export const</span> <span class="tree-file">AIService</span> = {<br>
+                        &nbsp;&nbsp;<span class="keyword">async</span> <span class="function-name">sendMessage</span>(chatHistory, subject) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Injeta metadados (Neurotipo, Humor)</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function-name">fetchComRetry</span>(...);<br>
+                        &nbsp;&nbsp;}<br>
+                        };
                     </div>
-                    <div class="tech-block cyan">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-paint-brush"></i><h2>Tailwind CSS</h2></div>
-                            <div class="tech-description"><p>Framework utilitário que garante uma aplicação leve e visualmente padronizada em todos os ecrãs.</p></div>
+                    <div class="tech-explanation-grid">
+                        <div class="info-card cyan">
+                            <h3><i class="fas fa-shield-alt" style="color:var(--color-cyan)"></i> Resiliência e Auto-Recuperação</h3>
+                            <p>O motor integra o método <code>fetchComRetry</code> com recuo exponencial. Se a API falhar temporariamente, o sistema re-tenta autonomamente, garantindo estabilidade.</p>
                         </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um alfaiate com moldes prontos, garantindo rapidez e precisão extrema no design.</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="slide-header">
-                <div class="slide-title-group"><p>Ambiente</p><h2>Nativo Desktop vs Execução Web</h2></div>
-                <img class="header-logo" src="logo.png" alt="Logo">
-            </div>
-            <div class="content-area">
-                <div class="tech-row-container">
-                    <div class="tech-block cyan">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-laptop-code"></i><h2>Electron JS</h2></div>
-                            <div class="tech-description"><p>Cria um ambiente focado e isolado para o aluno, evitando que distrações do navegador prejudiquem o foco de estudo.</p></div>
+                        <div class="info-card">
+                            <h3><i class="fas fa-brain" style="color:var(--color-orange)"></i> Injeção de Contexto Dinâmica</h3>
+                            <p>O serviço lê o perfil do utilizador no Supabase e reconstrói o prompt enviado ao modelo em tempo real, gerando interações personalizadas ao neurotipo.</p>
                         </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma moldura que transforma o site num programa real instalado localmente no PC.</span></div>
-                    </div>
-                    <div class="tech-block">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-globe"></i><h2>Navegador (Web)</h2></div>
-                            <div class="tech-description"><p>Execução direta no motor de JavaScript do browser, permitindo acesso imediato sem necessidade de instalação.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Aceder a um serviço público através de uma bilheteira geral sem precisar de uma chave privada.</span></div>
                     </div>
                 </div>
             </div>
@@ -503,155 +410,153 @@
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>IA Hub</p><h2>Seleção de Modelos e APIs</h2></div>
-                <img class="header-logo" src="logo.png" alt="Logo">
-            </div>
-            <div class="content-area">
-                <div class="tech-row-container">
-                    <div class="tech-block">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-plug"></i><h2>O que são APIs?</h2></div>
-                            <div class="tech-description"><p>Contratos de comunicação que permitem ao TutorAI enviar perguntas e receber respostas estruturadas de servidores remotos.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> O empregado de mesa que recolhe o pedido e traz a refeição pronta da cozinha.</span></div>
-                    </div>
-                    <div class="tech-block cyan">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-brain"></i><h2>OpenRouter Gateway</h2></div>
-                            <div class="tech-description"><p>Plataforma agregadora onde eu <strong>defini nas configurações</strong> qual o modelo ideal (ex: Llama 3) a ser consumido, garantindo a melhor relação de custo, velocidade e coerência pedagógica.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Uma central telefónica estável onde eu escolho o especialista fixo que vai atender a chamada.</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="slide-header">
-                <div class="slide-title-group"><p>Backend</p><h2>Persistência e Segurança</h2></div>
-                <img class="header-logo" src="logo.png" alt="Logo">
-            </div>
-            <div class="content-area">
-                <div class="tech-row-container">
-                    <div class="tech-block cyan">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-cloud"></i><h3>Persistência Cloud</h3></div>
-                            <div class="tech-description"><p>Garante que os níveis de domínio e notas do aluno sobrevivam estáveis ao fecho do programa ou desligar do PC.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um cofre virtual infinito e seguro, sempre sincronizado via Web.</span></div>
-                    </div>
-                    <div class="tech-block">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-server"></i><h3>Supabase</h3></div>
-                            <div class="tech-description"><p>Infraestrutura assente in PostgreSQL para gestão relacional do histórico e armazenamento seguro de dados dos utilizadores.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Um sistema bancário com cofres privados invioláveis para guardar as contas dos utilizadores.</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="slide-header">
-                <div class="slide-title-group"><p>Segurança</p><h2>Encriptação e Proteção de Dados</h2></div>
+                <div class="slide-title-group"><p>Fluxo de Engenharia</p><h2>Ciclo de Comunicação Híbrido</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-user-shield" style="color:var(--color-orange)"></i> JWT</h3>
-                        <p>Tokens cifrados que validam a identidade do aluno sem expor as suas credenciais em cada ciclo de uso.</p>
-                    </div>
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-key" style="color:var(--color-cyan)"></i> Hashing Robusto</h3>
-                        <p>Passwords guardadas com algoritmos criptográficos de sentido único, tornando as credenciais ilegíveis no banco de dados.</p>
-                    </div>
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-lock" style="color:var(--color-orange)"></i> RLS</h3>
-                        <p>Row Level Security: Isolamento estrito onde cada estudante só consegue aceder exclusivamente aos seus próprios registos.</p>
-                    </div>
+                    <div class="info-card" style="grid-template-columns: 220px 1fr;"><h3>1. Input</h3><p>O utilizador submete uma dúvida através da interface reativa em React e Tailwind CSS.</p></div>
+                    <div class="info-card cyan" style="grid-template-columns: 220px 1fr;"><h3>2. Orquestração</h3><p>O Electron gere processos nativos, enquanto o navegador efetua requisições HTTPS diretas via API.</p></div>
+                    <div class="info-card" style="grid-template-columns: 220px 1fr;"><h3>3. IA Hub</h3><p>O OpenRouter encaminha o pedido para o modelo LLM fixo configurado no código (DeepSeek).</p></div>
+                    <div class="info-card cyan" style="grid-template-columns: 220px 1fr;"><h3>4. Nuvem</h3><p>Os dados de evolução são sincronizados e gravados instantaneamente no Supabase.</p></div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Performance</p><h2>Latência e Otimização</h2></div>
+                <div class="slide-title-group"><p>Camada Visual</p><h2>Desenvolvimento de Interface Reativa</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="tech-row-container">
-                    <div class="tech-block">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-stopwatch"></i><h2>Latência (&lt;5s)</h2></div>
-                            <div class="tech-description"><p>Métrica de atraso na transmissão. Manter este valor baixo previne a quebra de atenção do estudante no processo ativo de estudo.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> O tempo exato que decorre entre o clique no interruptor e a lâmpada acender.</span></div>
-                    </div>
-                    <div class="tech-block cyan">
-                        <div class="tech-main-info">
-                            <div class="tech-label"><i class="fas fa-microchip"></i><h2>Otimização Local</h2></div>
-                            <div class="tech-description"><p>Refatoração do JavaScript para garantir o menor consumo de CPU e RAM, permitindo rodar em computadores escolares antigos.</p></div>
-                        </div>
-                        <div class="tech-analogia-row"><span><strong>Analogia:</strong> Aliviar o peso morto de um carro para ele andar mais rápido gastando menos.</span></div>
-                    </div>
+                <div class="tech-block">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fab fa-react"></i><h3>React JS</h3></div><div class="tech-description"><p>Biblioteca baseada em componentes que garante o reaproveitamento total do código: a mesma interface corre no navegador e no programa nativo.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Blocos de construção estáveis que se encaixam e funcionam em qualquer tabuleiro.</span></div>
+                </div>
+                <div class="tech-block cyan">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-paint-brush"></i><h3>Tailwind CSS</h3></div><div class="tech-description"><p>Framework de classes utilitárias que permite criar um design performativo e visualmente consistente em qualquer tamanho de ecrã.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Um alfaiate com moldes prontos, garantindo rapidez e precisão estética.</span></div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Análise de Testes</p><h2>Compatibilidade Windows vs Linux</h2></div>
+                <div class="slide-title-group"><p>Ambiente</p><h2>Isolamento vs Acessibilidade</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-block cyan">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-laptop-code"></i><h3>Electron JS</h3></div><div class="tech-description"><p>Encapsula a aplicação num software nativo, criando um ecossistema de estudo focado e livre das distrações normais do navegador comum.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Uma moldura protetora dedicada que transforma a interface web num programa real local.</span></div>
+                </div>
+                <div class="tech-block">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-globe"></i><h3>Navegador Web</h3></div><div class="tech-description"><p>Execução direta no motor de JavaScript do browser, permitindo flexibilidade total para o aluno estudar sem necessidade de instalações prévias.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Aceder a um serviço via bilheteira pública aberta: instantâneo e global.</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>IA Hub</p><h2>Orquestração e Gateway de IA</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-block">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-plug"></i><h3>APIs</h3></div><div class="tech-description"><p>Interfaces que permitem que o TutorAI envie perguntas dos alunos para servidores externos e receba respostas pedagógicas estruturadas.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> O funcionário que leva o pedido da mesa até à cozinha e traz o prato pronto de volta.</span></div>
+                </div>
+                <div class="tech-block cyan">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-brain"></i><h3>OpenRouter</h3></div><div class="tech-description"><p>Gateway central onde defini previamente qual o modelo ideal para responder com a melhor velocidade e precisão científica.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Uma central telefónica internacional que direciona a chamada fixamente ao melhor especialista.</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Dados</p><h2>Persistência e Infraestrutura Cloud</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="tech-block cyan">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-cloud"></i><h3>Sincronização Cloud</h3></div><div class="tech-description"><p>Assegura que todo o percurso — notas e progresso — não se perca quando a aplicação é encerrada ou o computador é desligado.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Um caderno que escreve sozinho numa biblioteca central em nuvem, mantendo tudo seguro.</span></div>
+                </div>
+                <div class="tech-block">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-server"></i><h3>Supabase</h3></div><div class="tech-description"><p>Base de dados relacional robusta que gere o armazenamento estruturado e o sistema de autenticação seguro dos utilizadores.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Um banco altamente organizado com cofres individuais: dados blindados e indexados.</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Segurança</p><h2>Encriptação e Blindagem de Dados</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
                 <div class="vertical-stack-list">
-                    <div class="vertical-list-card red">
-                        <h3><i class="fas fa-bug" style="color:#ef4444"></i> Inconsistência</h3>
-                        <p><strong>Falha Identificada:</strong> Ícones nativos (como o microfone e o caixote do lixo) que usam caracteres emoji ficam corrompidos ou invisíveis em ambientes Linux devido à ausência de fontes proprietárias.</p>
-                    </div>
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-check-circle" style="color:var(--color-cyan)"></i> Solução "Humor"</h3>
-                        <p>Desenvolvimento de uma opção nas configurações do sistema para alternar o modo de humor e desativar totalmente os emojis, mantendo a interface do chat limpa e legível.</p>
-                    </div>
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-vial" style="color:var(--color-orange)"></i> Rigor Técnico</h3>
-                        <p>A identification e mitigação deste bug servem como prova empírica de que a aplicação foi testada em diferentes plataformas de hardware e sistemas operativos.</p>
-                    </div>
+                    <div class="info-card"><h3><i class="fas fa-user-shield" style="color:var(--color-orange)"></i> Autenticação JWT</h3><p>Tokens cifrados que validam a identidade do aluno em cada pedido sem expor a palavra-passe na rede.</p></div>
+                    <div class="info-card cyan"><h3><i class="fas fa-key" style="color:var(--color-cyan)"></i> Hashing Robusto</h3><p>As credenciais nunca são guardadas em texto limpo, sendo processadas por funções criptográficas seguras.</p></div>
+                    <div class="info-card"><h3><i class="fas fa-lock" style="color:var(--color-orange)"></i> Segurança RLS</h3><p>Row Level Security: Isolamento absoluto onde um utilizador só consegue interagir com as suas próprias linhas.</p></div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="slide-header">
-                <div class="slide-title-group"><p>Evolução</p><h2>Roadmap e Escalabilidade</h2></div>
+                <div class="slide-title-group"><p>Engenharia</p><h2>Métricas de Latência e Eficiência</h2></div>
                 <img class="header-logo" src="logo.png" alt="Logo">
             </div>
             <div class="content-area">
-                <div class="vertical-stack-list">
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fab fa-linux" style="color:var(--color-cyan)"></i> Suporte Linux</h3>
-                        <p>Substituição completa dos emojis por ícones vetoriais SVG geridos de forma independente para blindar o design em distribuições Open Source.</p>
-                    </div>
-                    <div class="vertical-list-card">
-                        <h3><i class="fas fa-mobile-alt" style="color:var(--color-orange)"></i> Ecossistema Mobile</h3>
-                        <p>Migração estrutural do core em React para React Native, estendendo o TutorAI para smartphones iOS e Android.</p>
-                    </div>
-                    <div class="vertical-list-card cyan">
-                        <h3><i class="fas fa-gamepad" style="color:var(--color-cyan)"></i> Gamificação</h3>
-                        <p>Implementação de quadros de liderança entre turmas e insígnias digitais de conquista integradas diretamente ao Baú do Conhecimento.</p>
-                    </div>
+                <div class="tech-block">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-stopwatch"></i><h3>Latência (&lt;5s)</h3></div><div class="tech-description"><p>Tempo total entre o envio do pedido e a resposta da IA. Manter este valor baixo respeita a biologia da atenção do estudante.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> O intervalo entre carregar no interruptor e a lâmpada acender: crucial para parecer natural.</span></div>
+                </div>
+                <div class="tech-block cyan">
+                    <div class="tech-main-info"><div class="tech-label"><i class="fas fa-microchip"></i><h3>Refatoração Local</h3></div><div class="tech-description"><p>Limpeza de algoritmos redundantes para garantir excelente fluidez mesmo em computadores escolares antigos.</p></div></div>
+                    <div class="tech-analogy"><span><strong>Analogia:</strong> Retirar peso morto da bagagem de um carro: acelera mais rápido consumindo menos energia.</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide cover-slide">
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Testes</p><h2>Controlo de Qualidade Multiplataforma</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list">
+                    <div class="info-card red"><h3><i class="fas fa-bug" style="color:#ef4444"></i> Bug Detetado</h3><p><strong>Inconsistência de Emojis:</strong> Em ambiente Linux, os ícones do chat baseados em fontes nativas Windows ficaram corrompidos.</p></div>
+                    <div class="info-card cyan"><h3><i class="fas fa-check-circle" style="color:var(--color-cyan)"></i> Resolução</h3><p>Desenvolvimento de um "Modo Humor" nas definições para desativar os emojis nativos, mantendo tudo operacional.</p></div>
+                    <div class="info-card"><h3><i class="fas fa-vial" style="color:var(--color-orange)"></i> Rigor Técnico</h3><p>A catalogação deste bug comprova que o software passou por testes estritos em ambientes Windows e Linux.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title-group"><p>Roadmap</p><h2>Plano de Escalabilidade e Visão</h2></div>
+                <img class="header-logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="content-area">
+                <div class="vertical-stack-list">
+                    <div class="info-card cyan"><h3><i class="fab fa-linux" style="color:var(--color-cyan)"></i> Padronização SVGs</h3><p>Substituição de fontes proprietárias por vetores SVG nativos, mitigando falhas visuais em sistemas Open Source.</p></div>
+                    <div class="info-card"><h3><i class="fas fa-mobile-alt" style="color:var(--color-orange)"></i> Expansão Mobile</h3><p>Migração mapeada para React Native, estendendo o ecossistema para smartphones iOS e Android.</p></div>
+                    <div class="info-card cyan"><h3><i class="fas fa-gamepad" style="color:var(--color-cyan)"></i> Gamificação</h3><p>Criação de tabelas de liderança e conquistas associadas de forma segura ao Baú do Conhecimento.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
             <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <h2 style="font-size: 85px;">Muito Obrigado!</h2>
-                <p style="font-size: 28px; color: var(--text-light); max-width: 800px; margin-top: 30px; line-height: 1.6;">
+                <h2 style="font-size: 5.5rem; margin-bottom: 2vh;">Muito Obrigado!</h2>
+                <p style="font-size: 1.8rem; color: var(--text-light); max-width: 75%; line-height: 1.6; font-style: italic;">
                     "A tecnologia serve para personalizar o percurso de aprendizagem, respeitando a biologia do foco de cada estudante."
                 </p>
-                <div style="margin-top: 60px; color: var(--color-navy); font-size: 22px; font-weight: 700;">
+                <div style="margin-top: 8vh; color: var(--color-navy); font-size: 1.4rem; font-weight: 700;">
                     Jean Pierre Antunes | TutorAI PAP 2026
                 </div>
             </div>
@@ -677,11 +582,12 @@
             updateNav();
         }
         
-        // Atalhos de teclado
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
             if (e.key === 'ArrowLeft') changeSlide(-1);
         });
+
+        updateNav();
     </script>
 </body>
 </html>
